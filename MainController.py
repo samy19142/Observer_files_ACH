@@ -38,7 +38,17 @@ def init_db():
     conn.close()
 
 def add_file(name,hash_archivo):
-    
+    conn = sqlite3.connect(DATA_BASE)
+    cursor = conn.cursor()
+    try:
+        cursor.execute("INSERT INTO archivos (nombre, hash, fecha_creacion) VALUES (?, ?, datetime('now'))",
+                       (name, hash_archivo))
+        conn.commit()
+        print(f"Archivo {name} agregado a la base de datos.")
+    except sqlite3.IntegrityError:
+        print(f"El archivo {name} ya existe en la base de datos.")
+    finally:
+        conn.close()
 
 if __name__ == "__main__":
-    print(init_db())
+    print()
