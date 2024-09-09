@@ -16,7 +16,29 @@ def init_configuration():
 config = init_configuration()
 #Desestructurar configuraciones
 SHARED_FOLDER = config['carpeta_compartida']
+DATA_BASE = config['base_de_datos']
+INTERVAL_SCANN = config['intervalo_escaneo']
 
+def calculate_hash(path_file):
+    hash_md5 = hashlib.md5()
+    with open(path_file,'rb') as f:
+        for chunk in iter(lambda:f.read(4096),b""):
+            hash_md5.update(chunk)
+    return hash_md5.hexdigest()
+
+
+def init_db():
+    conn = sqlite3.connect(DATA_BASE)
+    cursor= conn.cursor()
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS archivos
+    (nombre TEXT, hash TEXT UNIQUE, fecha_creacion TIMESTAMP)
+    ''')
+    conn.commit()
+    conn.close()
+
+def add_file(name,hash_archivo):
+    
 
 if __name__ == "__main__":
-    print(init_configuration())
+    print(init_db())

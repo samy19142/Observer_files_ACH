@@ -1,5 +1,5 @@
 {
-    "carpeta_compartida": "/ruta/a/su/carpeta/compartida",
-    "base_de_datos": "archivos.db",
-    "intervalo_escaneo": 1
+    "carpeta_compartida": "/ruta/a/su/carpeta/compartidaSam",
+    "base_de_datos": "DataBase/db_ach.db",
+    "intervalo_escaneo": 5
 }
